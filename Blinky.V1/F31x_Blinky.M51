@@ -1,0 +1,263 @@
+BL51 BANKED LINKER/LOCATER V6.22              11/24/2015  17:10:30  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE C:\Users\tkasp\Documents\Cours\MIC\projects\Blinky.V1
+>> .2\F31x_Blinky.obj TO C:\Users\tkasp\Documents\Cours\MIC\projects\Blinky.V1
+>> .2\F31x_Blinky RS (256) PL (68) PW (78)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  C:\Users\tkasp\Documents\Cours\MIC\projects\Blinky.V1.2\F31x_Blinky.obj (F31
+>> X_BLINKY)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (PRINTF)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CSTPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PLDIIDATA)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CCASE)
+  C:\KEIL\C51\LIB\C51S.LIB (PUTCHAR)
+
+
+LINK MAP OF MODULE:  C:\Users\tkasp\Documents\Cours\MIC\projects\Blinky.V1.2\F
+>> 31x_Blinky (F31X_BLINKY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0014H     UNIT         _DATA_GROUP_
+                    001CH     0004H                  *** GAP ***
+            BIT     0020H.0   0001H.1   UNIT         _BIT_GROUP_
+                    0021H.1   0000H.7                *** GAP ***
+            IDATA   0022H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0028H                  *** GAP ***
+            CODE    002BH     0003H     ABSOLUTE     
+                    002EH     07D2H                  *** GAP ***
+            CODE    0800H     035CH     UNIT         ?PR?PRINTF?PRINTF
+            CODE    0B5CH     008EH     UNIT         ?C?LIB_CODE
+            CODE    0BEAH     0027H     UNIT         ?PR?PUTCHAR?PUTCHAR
+            CODE    0C11H     0020H     UNIT         ?PR?MAIN?F31X_BLINKY
+            CODE    0C31H     0013H     UNIT         ?PR?_TIMER2_INIT?F31X_BLI
+>> NKY
+            CODE    0C44H     0012H     UNIT         ?PR?TIMER2_ISR?F31X_BLINK
+>> Y
+            CODE    0C56H     0011H     UNIT         ?PR?UART0_INIT?F31X_BLINK
+>> Y
+            CODE    0C67H     000DH     UNIT         ?PR?PORT_INIT?F31X_BLINKY
+>> 
+            CODE    0C74H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0C80H     0008H     UNIT         ?PR?_PUT_CHAR_?F31X_BLINK
+>> Y
+            CODE    0C88H     0007H     UNIT         ?PR?SYSCLK_INIT?F31X_BLIN
+>> KY
+            CODE    0C8FH     0004H     UNIT         ?CO?F31X_BLINKY
+
+
+
+OVERLAY MAP OF MODULE:   C:\Users\tkasp\Documents\Cours\MIC\projects\Blinky.V1
+>> .2\F31x_Blinky (F31X_BLINKY)
+
+BL51 BANKED LINKER/LOCATER V6.22            11/24/2015  17:10:30  PAGE 2
+
+
+
+SEGMENT                                 BIT_GROUP          DATA_GROUP 
+  +--> CALLED SEGMENT                START    LENGTH     START    LENGTH
+------------------------------------------------------------------------
+?C_C51STARTUP                        -----    -----      -----    -----
+  +--> ?PR?MAIN?F31X_BLINKY
+
+?PR?MAIN?F31X_BLINKY                 -----    -----      -----    -----
+  +--> ?PR?SYSCLK_INIT?F31X_BLINKY
+  +--> ?PR?PORT_INIT?F31X_BLINKY
+  +--> ?PR?_TIMER2_INIT?F31X_BLINKY
+  +--> ?PR?UART0_INIT?F31X_BLINKY
+  +--> ?CO?F31X_BLINKY
+  +--> ?PR?PRINTF?PRINTF
+
+?PR?PRINTF?PRINTF                    0020H.0  0001H.1    0008H    0014H
+  +--> ?PR?PUTCHAR?PUTCHAR
+
+
+
+SYMBOL TABLE OF MODULE:  C:\Users\tkasp\Documents\Cours\MIC\projects\Blinky.V1
+>> .2\F31x_Blinky (F31X_BLINKY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        F31X_BLINKY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:00B0H         PUBLIC        P3
+  C:0C44H         PUBLIC        Timer2_ISR
+  B:00A8H.7       PUBLIC        EA
+  D:00E8H         PUBLIC        ADC0CN
+  D:00A4H         PUBLIC        P0MDOUT
+  D:00A8H         PUBLIC        IE
+  D:00A7H         PUBLIC        P3MDOUT
+  B:00C8H.7       PUBLIC        TF2H
+  B:0098H.4       PUBLIC        REN0
+  D:00D9H         PUBLIC        PCA0MD
+  D:00D8H         PUBLIC        PCA0CN
+  D:00B8H         PUBLIC        IP
+  C:0C80H         PUBLIC        _Put_char_
+  D:00E1H         PUBLIC        XBR0
+  D:00E2H         PUBLIC        XBR1
+  D:00C0H         PUBLIC        SMB0CN
+  C:0C11H         PUBLIC        main
+  C:0C31H         PUBLIC        _Timer2_Init
+  D:00F8H         PUBLIC        SPI0CN
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        TMR2CN
+  C:0C67H         PUBLIC        PORT_Init
+  D:00B2H         PUBLIC        OSCICN
+  D:00CAH         PUBLIC        TMR2RL
+  B:00A8H.5       PUBLIC        ET2
+  B:0098H.1       PUBLIC        TI0
+  D:008DH         PUBLIC        TH1
+  C:0C88H         PUBLIC        SYSCLK_Init
+  B:00B0H.3       PUBLIC        LED
+  B:0088H.6       PUBLIC        TR1
+  B:0080H.7       PUBLIC        SW2
+  D:0099H         PUBLIC        SBUF0
+  D:00EFH         PUBLIC        RSTSRC
+  C:0C56H         PUBLIC        UART0_Init
+  D:0098H         PUBLIC        SCON0
+BL51 BANKED LINKER/LOCATER V6.22            11/24/2015  17:10:30  PAGE 3
+
+
+  D:008EH         PUBLIC        CKCON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:0C11H         LINE#         51
+  C:0C11H         LINE#         54
+  C:0C14H         LINE#         57
+  C:0C17H         LINE#         59
+  C:0C1AH         LINE#         60
+  C:0C21H         LINE#         61
+  C:0C24H         LINE#         63
+  C:0C26H         LINE#         65
+  C:0C26H         LINE#         66
+  C:0C2FH         LINE#         67
+  -------         ENDPROC       MAIN
+  -------         PROC          SYSCLK_INIT
+  C:0C88H         LINE#         77
+  C:0C88H         LINE#         78
+  C:0C88H         LINE#         79
+  C:0C8BH         LINE#         81
+  C:0C8EH         LINE#         82
+  -------         ENDPROC       SYSCLK_INIT
+  -------         PROC          PORT_INIT
+  C:0C67H         LINE#         91
+  C:0C67H         LINE#         92
+  C:0C67H         LINE#         94
+  C:0C6AH         LINE#         95
+  C:0C6DH         LINE#         96
+  C:0C70H         LINE#         97
+  C:0C73H         LINE#         98
+  -------         ENDPROC       PORT_INIT
+  -------         PROC          _TIMER2_INIT
+  D:0006H         SYMBOL        n
+  C:0C31H         LINE#         107
+  C:0C31H         LINE#         108
+  C:0C31H         LINE#         110
+  C:0C34H         LINE#         112
+  C:0C37H         LINE#         113
+  C:0C41H         LINE#         115
+  C:0C43H         LINE#         117
+  -------         ENDPROC       _TIMER2_INIT
+  -------         PROC          UART0_INIT
+  C:0C56H         LINE#         126
+  C:0C56H         LINE#         127
+  C:0C56H         LINE#         129
+  C:0C59H         LINE#         130
+  C:0C5CH         LINE#         131
+  C:0C5FH         LINE#         132
+  C:0C61H         LINE#         136
+  C:0C63H         LINE#         137
+  C:0C66H         LINE#         138
+  -------         ENDPROC       UART0_INIT
+  -------         PROC          _PUT_CHAR_
+  D:0007H         SYMBOL        c
+  C:0C80H         LINE#         145
+  C:0C80H         LINE#         146
+  C:0C80H         LINE#         147
+  C:0C83H         LINE#         148
+  C:0C85H         LINE#         149
+  C:0C87H         LINE#         150
+  -------         ENDPROC       _PUT_CHAR_
+  -------         PROC          TIMER2_ISR
+  C:0C44H         LINE#         161
+  C:0C46H         LINE#         163
+  C:0C4BH         LINE#         164
+  C:0C4DH         LINE#         165
+BL51 BANKED LINKER/LOCATER V6.22            11/24/2015  17:10:30  PAGE 4
+
+
+  C:0C4FH         LINE#         166
+  C:0C4FH         LINE#         167
+  C:0C51H         LINE#         168
+  C:0C51H         LINE#         170
+  C:0C53H         LINE#         171
+  -------         ENDPROC       TIMER2_ISR
+  -------         ENDMOD        F31X_BLINKY
+
+  -------         MODULE        PRINTF
+  D:0008H         PUBLIC        ?_PRINTF517?BYTE
+  D:0008H         PUBLIC        ?_PRINTF?BYTE
+  D:0008H         PUBLIC        ?_SPRINTF517?BYTE
+  D:0008H         PUBLIC        ?_SPRINTF?BYTE
+  C:0862H         PUBLIC        _PRINTF
+  C:0862H         PUBLIC        _PRINTF517
+  C:085CH         PUBLIC        _SPRINTF
+  C:085CH         PUBLIC        _SPRINTF517
+  -------         ENDMOD        PRINTF
+
+  -------         MODULE        ?C?CLDPTR
+  C:0B5CH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CLDOPTR
+  C:0B75H         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:0BA2H         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?PLDIIDATA
+  C:0BB4H         PUBLIC        ?C?PLDIIDATA
+  -------         ENDMOD        ?C?PLDIIDATA
+
+  -------         MODULE        ?C?CCASE
+  C:0BC4H         PUBLIC        ?C?CCASE
+  -------         ENDMOD        ?C?CCASE
+
+  -------         MODULE        PUTCHAR
+  C:0BEAH         PUBLIC        _PUTCHAR
+  -------         ENDMOD        PUTCHAR
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PUT_CHAR_?F31X_BLINKY
+
+******************************************************************************
+>> 
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0079H BYTE ( 5%) *
+>> 
+******************************************************************************
+>> 
+
+Program Size: data=30.1 xdata=0 code=1177
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

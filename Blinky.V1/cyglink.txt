@@ -1,0 +1,1 @@
+"C:\Users\tkasp\Documents\Cours\MIC\projects\Blinky.V1.2\F31x_Blinky.obj"  TO "C:\Users\tkasp\Documents\Cours\MIC\projects\Blinky.V1.2\F31x_Blinky" RS(256) PL(68) PW(78) 
