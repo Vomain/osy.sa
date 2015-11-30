@@ -1,0 +1,358 @@
+C51 COMPILER V9.50a   F31X_BLINKY                                                          11/30/2015 17:17:30 PAGE 1   
+
+
+C51 COMPILER V9.50a, COMPILATION OF MODULE F31X_BLINKY
+OBJECT MODULE PLACED IN F31x_Blinky.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe F31x_Blinky.c DB OE
+
+line level    source
+
+   1          //-----------------------------------------------------------------------------
+   2          // F31x_Blinky.c
+   3          //-----------------------------------------------------------------------------
+   4          // Copyright (C) 2007 Silicon Laboratories, Inc.
+   5          //
+   6          // AUTH: JS
+   7          // DATE: 03 JUL 02
+   8          //
+   9          // This program flashes the green LED on the C8051F31x target board about
+  10          // five times a second using the interrupt handler for Timer2.
+  11          //
+  12          // Target: C8051F31x
+  13          //
+  14          // Tool chain: KEIL Eval 'c'
+  15          //
+  16          
+  17          //-----------------------------------------------------------------------------
+  18          // Includes
+  19          //-----------------------------------------------------------------------------
+  20          #include <c8051f310.h>                    // SFR declarations
+  21          #include "stdio.h"
+  22          
+  23          //-----------------------------------------------------------------------------
+  24          // 16-bit SFR Definitions for 'F30x
+  25          //-----------------------------------------------------------------------------
+  26          
+  27          sfr16 TMR2RL   = 0xca;                    // Timer2 reload value
+  28          sfr16 TMR2     = 0xcc;                    // Timer2 counter
+  29          
+  30          sfr16 ADC0     = 0xbd;                    // ADC  
+  31          
+  32          //-----------------------------------------------------------------------------
+  33          // Global CONSTANTS
+  34          //-----------------------------------------------------------------------------
+  35          
+  36          #define SYSCLK       24500000 / 8         // SYSCLK frequency in Hz
+  37          
+  38          sbit LED = P3^3;                          // LED='1' means ON
+  39          sbit SW2 = P0^7;                          // SW2='0' means switch pressed
+  40          unsigned int AnBiPot;                     // Analog Binary Potentiometer (binary)
+  41          unsigned int AnVoPot;                     // Analog Voltage Potentiometer (mV)
+  42          unsigned int AnBiTemp;                    // Analog Binary Temperature (binary)
+  43          unsigned int AnVoTemp;                    // Analog Voltage Temperature (°C)
+  44          unsigned long L;
+  45          unsigned long M;
+  46          
+  47          //-----------------------------------------------------------------------------
+  48          // event def
+  49          //-----------------------------------------------------------------------------
+  50          
+  51          typedef unsigned char event;
+  52          
+  53          void event_trigger (event *e)
+  54          {
+  55   1          *e = 1;
+C51 COMPILER V9.50a   F31X_BLINKY                                                          11/30/2015 17:17:30 PAGE 2   
+
+  56   1      }
+  57          
+  58          event top_second;
+  59          
+  60          void event_init (event *e) 
+  61          {
+  62   1         *e =0;
+  63   1      }
+  64          
+  65          int event_check (event *e)
+  66          {
+  67   1         if (*e) 
+  68   1         {
+  69   2            *e = 0;
+  70   2                return 1;
+  71   2         }
+  72   1         return 0;
+  73   1      }
+  74          
+  75          //-----------------------------------------------------------------------------
+  76          // Time manager
+  77          //-----------------------------------------------------------------------------
+  78          unsigned int time_special = 0, time_S = 0, time_M = 0, time_H = 0;
+  79          void maj_horloge()
+  80          {
+  81   1         time_special++;
+  82   1         if (time_special == 1) {
+  83   2                 time_special = 0;
+  84   2                 time_S++;
+  85   2                 if (time_S == 60) 
+  86   2                 {
+  87   3                    time_S = 0;
+  88   3                        time_M++;
+  89   3                        if (time_M == 60) 
+  90   3                        {
+  91   4                           time_H++;
+  92   4                               time_M = 0;
+  93   4                        }
+  94   3                 }
+  95   2         }
+  96   1      }
+  97          
+  98          
+  99          //-----------------------------------------------------------------------------
+ 100          // Mesure P1.1
+ 101          //-----------------------------------------------------------------------------
+ 102          void ADC_Init(void)
+ 103          {
+ 104   1         AMX0N     = 0x1f;      // GND en entrée
+ 105   1         AMX0P     = 0x01;      // entrée en P1.1
+ 106   1      
+ 107   1         ADC0CN   |= 0x82;      // tracking mode, start sur timer2
+ 108   1         ADC0CF    = 0x60;      // ajusté à droite, oscillateur à 1,88MHz
+ 109   1         REF0CN    = 0x0e;      // référence Vdd, capteur température valide
+ 110   1      
+ 111   1         EIE1     |= 0x08;      // démasque l'it ADC
+ 112   1      }
+ 113          
+ 114          
+ 115          //-----------------------------------------------------------------------------
+ 116          // Function PROTOTYPES
+ 117          //-----------------------------------------------------------------------------
+C51 COMPILER V9.50a   F31X_BLINKY                                                          11/30/2015 17:17:30 PAGE 3   
+
+ 118          void SYSCLK_Init (void);
+ 119          void PORT_Init (void);
+ 120          void Timer2_Init (int counts);
+ 121          void Timer2_ISR (void);
+ 122          void UART0_Init (void);
+ 123          
+ 124          //-----------------------------------------------------------------------------
+ 125          // MAIN Routine
+ 126          //-----------------------------------------------------------------------------
+ 127          void main (void) {
+ 128   1      
+ 129   1         // disable watchdog timer
+ 130   1         PCA0MD &= ~0x40;                       // WDTE = 0 (clear watchdog timer
+ 131   1                                                // enable)
+ 132   1      
+ 133   1         SYSCLK_Init ();                        // Initialize system clock to
+ 134   1                                                // 24.5MHz
+ 135   1         PORT_Init ();                          // Initialize crossbar and GPIO
+ 136   1         Timer2_Init (0x9F81);                  // Init Timer2
+ 137   1         UART0_Init ();
+ 138   1         event_init (&top_second);
+ 139   1      
+ 140   1         ADC_Init();
+ 141   1      
+ 142   1         EA = 1;                                // enable global interrupts
+ 143   1      
+ 144   1         
+ 145   1      
+ 146   1         while (1) {                            // spin forever
+ 147   2            if (event_check(&top_second))
+ 148   2                {
+ 149   3                       printf("\r");
+ 150   3      
+ 151   3               maj_horloge();
+ 152   3      
+ 153   3                   if (time_S%2)
+ 154   3                       {
+ 155   4                          printf("tic ");
+ 156   4      
+ 157   4               }
+ 158   3                       else {
+ 159   4                          printf("tac ");
+ 160   4                       }
+ 161   3      
+ 162   3                       printf(" %d:%02d:%02d ",time_H,time_M,time_S);
+ 163   3      
+ 164   3               // printf("[%0#*d]        ", time_special, 0);        // print d'une bar de chargemenet tous les 
+             -1/10e de secondes
+ 165   3                              
+ 166   3               printf("\n\nTension aux bornes du potentiomètre (Binaire) : %d", AnBiPot);         
+ 167   3               printf("\nTension aux bornes du potentiomètre (V) : %d\n\n", AnVoPot);
+ 168   3                       
+ 169   3               printf("\Température (Binaire) : %d", AnBiTemp);         
+ 170   3               printf("\nTempérature (°C) : %d\n\n\n", AnVoTemp);  
+ 171   3      
+ 172   3               if (~SW2) {                                       // la DEL reste fixe si on appuie sur le switch
+             - (P0.7)
+ 173   4                  LED = 1;
+ 174   4               }
+ 175   3               else {
+ 176   4                  LED = ~LED;
+ 177   4               }
+C51 COMPILER V9.50a   F31X_BLINKY                                                          11/30/2015 17:17:30 PAGE 4   
+
+ 178   3      
+ 179   3            }
+ 180   2         }
+ 181   1      }
+ 182          
+ 183          //-----------------------------------------------------------------------------
+ 184          // SYSCLK_Init
+ 185          //-----------------------------------------------------------------------------
+ 186          //
+ 187          // This routine initializes the system clock to use the internal 24.5MHz / 8
+ 188          // oscillator as its clock source.  Also enables missing clock detector reset.
+ 189          //
+ 190          void SYSCLK_Init (void)
+ 191          {
+ 192   1         OSCICN = 0xc3;                         // configure internal oscillator for
+ 193   1                                                // its lowest frequency
+ 194   1         RSTSRC = 0x04;                         // enable missing clock detector
+ 195   1      }
+ 196          
+ 197          //-----------------------------------------------------------------------------
+ 198          // PORT_Init
+ 199          //-----------------------------------------------------------------------------
+ 200          //
+ 201          // Configure the Crossbar and GPIO ports.
+ 202          // P3.3 - LED (push-pull)
+ 203          //
+ 204          void PORT_Init (void)
+ 205          {
+ 206   1                                                // assignments
+ 207   1         XBR0     = 0x01;                       // no digital peripherals selected
+ 208   1         XBR1     = 0x40;                       // Enable crossbar and weak pull-ups
+ 209   1         P0MDOUT |= 0x10;                       // TxD (P0.4) as push-pull
+ 210   1         P3MDOUT |= 0x08;                       // enable LED as a push-pull output
+ 211   1      
+ 212   1         P1MDIN  &= ~0x02;                      // permet de passer P1.1 en entrée analogique
+ 213   1      }
+ 214          
+ 215          //-----------------------------------------------------------------------------
+ 216          // Timer2_Init
+ 217          //-----------------------------------------------------------------------------
+ 218          //
+ 219          // Configure Timer2 to 16-bit auto-reload and generate an interrupt at
+ 220          // interval specified by <counts> using SYSCLK/48 as its time base.
+ 221          //
+ 222          void Timer2_Init (int n)
+ 223          {
+ 224   1                                                // use SYSCLK/12 as timebase
+ 225   1         CKCON  &= ~0x10;                       // Timer2 clocked based on T2XCLK;
+ 226   1      
+ 227   1         TMR2CN  = 0x04;                        // Stop Timer2; Clear TF2; Voir datasheet p199
+ 228   1         TMR2RL  = -n;                          // Init reload values
+ 229   1      
+ 230   1         ET2 = 1;
+ 231   1      
+ 232   1      }
+ 233          
+ 234          
+ 235          //-----------------------------------------------------------------------------
+ 236          // UART0_Init
+ 237          //-----------------------------------------------------------------------------
+ 238          //
+ 239          
+C51 COMPILER V9.50a   F31X_BLINKY                                                          11/30/2015 17:17:30 PAGE 5   
+
+ 240          
+ 241          void UART0_Init()
+ 242          {
+ 243   1         //Timer 1 init
+ 244   1         TH1     = -213;                        // débordement à 57600Hz
+ 245   1         TMOD   |= 0x20;                        // mode2 autoreload
+ 246   1         CKCON  |= 0x08;                        // sysclk pour timer1
+ 247   1         TR1     = 1;                           // timer1 run
+ 248   1      
+ 249   1      
+ 250   1         //UART Init
+ 251   1         REN0    = 1;                           // reception autorisée
+ 252   1         SBUF0   = '\n';                        // pour commencer nouvelle  
+ 253   1      }
+ 254          
+ 255          //-----------------------------------------------------------------------------
+ 256          // Put_char_
+ 257          //-----------------------------------------------------------------------------
+ 258          //
+ 259          
+ 260          void Put_char_(unsigned char c)
+ 261          {
+ 262   1         while (TI0 == 0) {}
+ 263   1         TI0     = 0;
+ 264   1         SBUF0   = c;
+ 265   1      }
+ 266          
+ 267          //-----------------------------------------------------------------------------
+ 268          // Interrupt Service Routines
+ 269          //-----------------------------------------------------------------------------
+ 270          
+ 271          //-----------------------------------------------------------------------------
+ 272          // Timer2_ISR
+ 273          //-----------------------------------------------------------------------------
+ 274          // This routine changes the state of the LED whenever Timer2 overflows.
+ 275          //
+ 276          void Timer2_ISR (void) interrupt 5
+ 277          {
+ 278   1         
+ 279   1      
+ 280   1         static unsigned char counter = 50;
+ 281   1         counter--;
+ 282   1         if (counter == 0) {
+ 283   2      
+ 284   2            event_trigger(&top_second);
+ 285   2            
+ 286   2                counter = 50;
+ 287   2         }
+ 288   1            
+ 289   1      
+ 290   1         TF2H = 0;                              // clear Timer2 interrupt flag
+ 291   1      }
+ 292          
+ 293          //-----------------------------------------------------------------------------
+ 294          // ADC_ISR
+ 295          //-----------------------------------------------------------------------------
+ 296          // This routine changes everytime the potentiometer is changed
+ 297          //
+ 298          
+ 299          void ADC_ISR() interrupt 10 
+ 300          {
+ 301   1         AD0INT       = 0;                // Remise du bit d'interruption à 0
+C51 COMPILER V9.50a   F31X_BLINKY                                                          11/30/2015 17:17:30 PAGE 6   
+
+ 302   1         
+ 303   1         switch(AMX0P)                         // Il n'y a qu'un seul convertisseur : on ne peut pas mesurer la 
+             -temp et la tension en même temps
+ 304   1         {
+ 305   2            case 0x01:
+ 306   2               AnBiPot = ADC0;
+ 307   2                       AMX0P = 0x1E;
+ 308   2                       break;
+ 309   2            case 0x1E:
+ 310   2               AnBiTemp = ADC0;
+ 311   2                       AMX0P = 0x01;       
+ 312   2         }
+ 313   1      
+ 314   1         L                 = (long) AnBiPot * 3300 / 1023; // On dépasse les 16 bits si on reste en int
+ 315   1         AnVoPot           = (unsigned int) L;
+ 316   1      
+ 317   1         M                 = ((long) AnBiTemp * 3300 / 1023 - 897) / 3.35; // Pareil. Facteur de conversion à ch
+             -ercher dans la doc
+ 318   1         AnVoTemp          = (unsigned int) L;
+ 319   1      
+ 320   1      
+ 321   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    605    ----
+   CONSTANT SIZE    =    181    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     26    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,487 @@
+BL51 BANKED LINKER/LOCATER V6.22              11/30/2015  17:17:30  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE C:\Users\tkasp\Documents\Cours\GitHub\osy.sa\Blinky.V
+>> 2\F31x_Blinky.obj TO C:\Users\tkasp\Documents\Cours\GitHub\osy.sa\Blinky.V2
+>> \F31x_Blinky RS (256) PL (68) PW (78)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  C:\Users\tkasp\Documents\Cours\GitHub\osy.sa\Blinky.V2\F31x_Blinky.obj (F31X
+>> _BLINKY)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPDIV)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FCAST)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?CASTF)
+  C:\KEIL\C51\LIB\C51FPS.LIB (PRINTF)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPROUND)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPCONVERT)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPADD)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FTNPWR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CSTPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?LMUL)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?SLDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?LNEG)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PLDIIDATA)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CCASE)
+  C:\KEIL\C51\LIB\C51S.LIB (PUTCHAR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?ULDIV)
+
+
+LINK MAP OF MODULE:  C:\Users\tkasp\Documents\Cours\GitHub\osy.sa\Blinky.V2\F3
+>> 1x_Blinky (F31X_BLINKY)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+                    0008H     0018H                  *** GAP ***
+            BIT     0020H.0   0001H.1   UNIT         _BIT_GROUP_
+                    0021H.1   0000H.7                *** GAP ***
+            DATA    0022H     001CH     UNIT         _DATA_GROUP_
+            DATA    003EH     001AH     UNIT         ?DT?F31X_BLINKY
+            IDATA   0058H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0028H                  *** GAP ***
+            CODE    002BH     0003H     ABSOLUTE     
+                    002EH     0025H                  *** GAP ***
+            CODE    0053H     0003H     ABSOLUTE     
+                    0056H     07AAH                  *** GAP ***
+            CODE    0800H     06B8H     UNIT         ?C?LIB_CODE
+            CODE    0EB8H     046FH     UNIT         ?PR?PRINTF?PRINTF
+            CODE    1327H     00C8H     UNIT         ?PR?ADC_ISR?F31X_BLINKY
+            CODE    13EFH     00B5H     UNIT         ?CO?F31X_BLINKY
+            CODE    14A4H     00B4H     UNIT         ?PR?MAIN?F31X_BLINKY
+            CODE    1558H     008CH     UNIT         ?C_C51STARTUP
+            CODE    15E4H     0044H     UNIT         ?C?LDIV
+BL51 BANKED LINKER/LOCATER V6.22            11/30/2015  17:17:30  PAGE 2
+
+
+            CODE    1628H     0040H     UNIT         ?PR?MAJ_HORLOGE?F31X_BLIN
+>> KY
+            CODE    1668H     0031H     UNIT         ?PR?TIMER2_ISR?F31X_BLINK
+>> Y
+            CODE    1699H     0027H     UNIT         ?PR?PUTCHAR?PUTCHAR
+            CODE    16C0H     0014H     UNIT         ?C_INITSEG
+            CODE    16D4H     0013H     UNIT         ?PR?ADC_INIT?F31X_BLINKY
+            CODE    16E7H     0013H     UNIT         ?PR?_TIMER2_INIT?F31X_BLI
+>> NKY
+            CODE    16FAH     0011H     UNIT         ?PR?_EVENT_CHECK?F31X_BLI
+>> NKY
+            CODE    170BH     0011H     UNIT         ?PR?UART0_INIT?F31X_BLINK
+>> Y
+            CODE    171CH     0010H     UNIT         ?PR?PORT_INIT?F31X_BLINKY
+>> 
+            CODE    172CH     0008H     UNIT         ?PR?_PUT_CHAR_?F31X_BLINK
+>> Y
+            CODE    1734H     0007H     UNIT         ?PR?SYSCLK_INIT?F31X_BLIN
+>> KY
+            CODE    173BH     0005H     UNIT         ?PR?_EVENT_TRIGGER?F31X_B
+>> LINKY
+            CODE    1740H     0004H     UNIT         ?PR?_EVENT_INIT?F31X_BLIN
+>> KY
+
+
+
+OVERLAY MAP OF MODULE:   C:\Users\tkasp\Documents\Cours\GitHub\osy.sa\Blinky.V
+>> 2\F31x_Blinky (F31X_BLINKY)
+
+
+SEGMENT                                   BIT_GROUP          DATA_GROUP 
+  +--> CALLED SEGMENT                  START    LENGTH     START    LENGTH
+--------------------------------------------------------------------------
+?PR?TIMER2_ISR?F31X_BLINKY             -----    -----      -----    -----
+  +--> ?PR?_EVENT_TRIGGER?F31X_BLINKY
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP                          -----    -----      -----    -----
+  +--> ?PR?MAIN?F31X_BLINKY
+  +--> ?C_INITSEG
+
+?PR?MAIN?F31X_BLINKY                   -----    -----      -----    -----
+  +--> ?PR?SYSCLK_INIT?F31X_BLINKY
+  +--> ?PR?PORT_INIT?F31X_BLINKY
+  +--> ?PR?_TIMER2_INIT?F31X_BLINKY
+  +--> ?PR?UART0_INIT?F31X_BLINKY
+  +--> ?PR?_EVENT_INIT?F31X_BLINKY
+  +--> ?PR?ADC_INIT?F31X_BLINKY
+  +--> ?PR?_EVENT_CHECK?F31X_BLINKY
+  +--> ?CO?F31X_BLINKY
+  +--> ?PR?PRINTF?PRINTF
+  +--> ?PR?MAJ_HORLOGE?F31X_BLINKY
+
+?PR?PRINTF?PRINTF                      0020H.0  0001H.1    0022H    001CH
+  +--> ?PR?PUTCHAR?PUTCHAR
+
+
+
+SYMBOL TABLE OF MODULE:  C:\Users\tkasp\Documents\Cours\GitHub\osy.sa\Blinky.V
+>> 2\F31x_Blinky (F31X_BLINKY)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+BL51 BANKED LINKER/LOCATER V6.22            11/30/2015  17:17:30  PAGE 3
+
+
+  -------         MODULE        F31X_BLINKY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:173BH         PUBLIC        _event_trigger
+  D:0080H         PUBLIC        P0
+  D:00BCH         PUBLIC        ADC0CF
+  D:00B0H         PUBLIC        P3
+  D:00E6H         PUBLIC        EIE1
+  C:1668H         PUBLIC        Timer2_ISR
+  B:00A8H.7       PUBLIC        EA
+  C:16FAH         PUBLIC        _event_check
+  D:00E8H         PUBLIC        ADC0CN
+  D:00A4H         PUBLIC        P0MDOUT
+  D:00A8H         PUBLIC        IE
+  C:1628H         PUBLIC        maj_horloge
+  D:003FH         PUBLIC        AnVoTemp
+  D:00A7H         PUBLIC        P3MDOUT
+  D:0041H         PUBLIC        AnBiPot
+  B:00C8H.7       PUBLIC        TF2H
+  B:0098H.4       PUBLIC        REN0
+  D:00D9H         PUBLIC        PCA0MD
+  D:00D8H         PUBLIC        PCA0CN
+  C:1327H         PUBLIC        ADC_ISR
+  D:00B8H         PUBLIC        IP
+  C:172CH         PUBLIC        _Put_char_
+  D:00E1H         PUBLIC        XBR0
+  D:00E2H         PUBLIC        XBR1
+  D:00D1H         PUBLIC        REF0CN
+  B:00E8H.5       PUBLIC        AD0INT
+  D:00C0H         PUBLIC        SMB0CN
+  C:14A4H         PUBLIC        main
+  D:0043H         PUBLIC        AnVoPot
+  D:00F2H         PUBLIC        P1MDIN
+  C:16E7H         PUBLIC        _Timer2_Init
+  D:00F8H         PUBLIC        SPI0CN
+  D:0045H         PUBLIC        top_second
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        TMR2CN
+  C:1740H         PUBLIC        _event_init
+  C:171CH         PUBLIC        PORT_Init
+  C:16D4H         PUBLIC        ADC_Init
+  D:00B2H         PUBLIC        OSCICN
+  D:00CAH         PUBLIC        TMR2RL
+  D:0046H         PUBLIC        L
+  B:00A8H.5       PUBLIC        ET2
+  D:004AH         PUBLIC        M
+  B:0098H.1       PUBLIC        TI0
+  D:008DH         PUBLIC        TH1
+  C:1734H         PUBLIC        SYSCLK_Init
+  B:00B0H.3       PUBLIC        LED
+  B:0088H.6       PUBLIC        TR1
+  D:004EH         PUBLIC        time_H
+  B:0080H.7       PUBLIC        SW2
+  D:0050H         PUBLIC        time_M
+  D:0099H         PUBLIC        SBUF0
+  D:00EFH         PUBLIC        RSTSRC
+  C:170BH         PUBLIC        UART0_Init
+  D:0052H         PUBLIC        time_S
+  D:0098H         PUBLIC        SCON0
+  D:00BAH         PUBLIC        AMX0N
+  D:00BBH         PUBLIC        AMX0P
+  D:008EH         PUBLIC        CKCON
+  D:0054H         PUBLIC        AnBiTemp
+  D:0056H         PUBLIC        time_special
+  D:00BDH         PUBLIC        ADC0
+BL51 BANKED LINKER/LOCATER V6.22            11/30/2015  17:17:30  PAGE 4
+
+
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _EVENT_TRIGGER
+  D:0001H         SYMBOL        e
+  C:173BH         LINE#         53
+  C:173BH         LINE#         54
+  C:173BH         LINE#         55
+  -------         ENDPROC       _EVENT_TRIGGER
+  -------         PROC          _EVENT_INIT
+  D:0001H         SYMBOL        e
+  C:1740H         LINE#         60
+  C:1740H         LINE#         61
+  C:1740H         LINE#         62
+  -------         ENDPROC       _EVENT_INIT
+  -------         PROC          _EVENT_CHECK
+  D:0001H         SYMBOL        e
+  C:16FAH         LINE#         65
+  C:16FAH         LINE#         66
+  C:16FAH         LINE#         67
+  C:16FFH         LINE#         68
+  C:16FFH         LINE#         69
+  C:1703H         LINE#         70
+  C:1707H         LINE#         71
+  C:1707H         LINE#         72
+  C:170AH         LINE#         73
+  -------         ENDPROC       _EVENT_CHECK
+  -------         PROC          MAJ_HORLOGE
+  C:1628H         LINE#         79
+  C:1628H         LINE#         80
+  C:1628H         LINE#         81
+  C:1630H         LINE#         82
+  C:1636H         LINE#         83
+  C:163AH         LINE#         84
+  C:1642H         LINE#         85
+  C:1648H         LINE#         86
+  C:1648H         LINE#         87
+  C:164CH         LINE#         88
+  C:1654H         LINE#         89
+  C:165AH         LINE#         90
+  C:165AH         LINE#         91
+  C:1662H         LINE#         92
+  C:1667H         LINE#         93
+  C:1667H         LINE#         94
+  C:1667H         LINE#         95
+  C:1667H         LINE#         96
+  -------         ENDPROC       MAJ_HORLOGE
+  -------         PROC          ADC_INIT
+  C:16D4H         LINE#         102
+  C:16D4H         LINE#         103
+  C:16D4H         LINE#         104
+  C:16D7H         LINE#         105
+  C:16DAH         LINE#         107
+  C:16DDH         LINE#         108
+  C:16E0H         LINE#         109
+  C:16E3H         LINE#         111
+  C:16E6H         LINE#         112
+  -------         ENDPROC       ADC_INIT
+  -------         PROC          MAIN
+  C:14A4H         LINE#         127
+  C:14A4H         LINE#         130
+  C:14A7H         LINE#         133
+  C:14AAH         LINE#         135
+  C:14ADH         LINE#         136
+  C:14B4H         LINE#         137
+  C:14B7H         LINE#         138
+  C:14C0H         LINE#         140
+BL51 BANKED LINKER/LOCATER V6.22            11/30/2015  17:17:30  PAGE 5
+
+
+  C:14C3H         LINE#         142
+  C:14C5H         LINE#         146
+  C:14C5H         LINE#         147
+  C:14D2H         LINE#         148
+  C:14D2H         LINE#         149
+  C:14DBH         LINE#         151
+  C:14DEH         LINE#         153
+  C:14E5H         LINE#         154
+  C:14E5H         LINE#         155
+  C:14E9H         LINE#         157
+  C:14EBH         LINE#         158
+  C:14EBH         LINE#         159
+  C:14F2H         LINE#         160
+  C:14F2H         LINE#         162
+  C:150DH         LINE#         166
+  C:151CH         LINE#         167
+  C:152BH         LINE#         169
+  C:153AH         LINE#         170
+  C:1549H         LINE#         172
+  C:154EH         LINE#         173
+  C:1550H         LINE#         174
+  C:1553H         LINE#         175
+  C:1553H         LINE#         176
+  C:1555H         LINE#         177
+  C:1555H         LINE#         179
+  C:1555H         LINE#         180
+  -------         ENDPROC       MAIN
+  -------         PROC          SYSCLK_INIT
+  C:1734H         LINE#         190
+  C:1734H         LINE#         191
+  C:1734H         LINE#         192
+  C:1737H         LINE#         194
+  C:173AH         LINE#         195
+  -------         ENDPROC       SYSCLK_INIT
+  -------         PROC          PORT_INIT
+  C:171CH         LINE#         204
+  C:171CH         LINE#         205
+  C:171CH         LINE#         207
+  C:171FH         LINE#         208
+  C:1722H         LINE#         209
+  C:1725H         LINE#         210
+  C:1728H         LINE#         212
+  C:172BH         LINE#         213
+  -------         ENDPROC       PORT_INIT
+  -------         PROC          _TIMER2_INIT
+  D:0006H         SYMBOL        n
+  C:16E7H         LINE#         222
+  C:16E7H         LINE#         223
+  C:16E7H         LINE#         225
+  C:16EAH         LINE#         227
+  C:16EDH         LINE#         228
+  C:16F7H         LINE#         230
+  C:16F9H         LINE#         232
+  -------         ENDPROC       _TIMER2_INIT
+  -------         PROC          UART0_INIT
+  C:170BH         LINE#         241
+  C:170BH         LINE#         242
+  C:170BH         LINE#         244
+  C:170EH         LINE#         245
+  C:1711H         LINE#         246
+  C:1714H         LINE#         247
+  C:1716H         LINE#         251
+  C:1718H         LINE#         252
+  C:171BH         LINE#         253
+  -------         ENDPROC       UART0_INIT
+BL51 BANKED LINKER/LOCATER V6.22            11/30/2015  17:17:30  PAGE 6
+
+
+  -------         PROC          _PUT_CHAR_
+  D:0007H         SYMBOL        c
+  C:172CH         LINE#         260
+  C:172CH         LINE#         261
+  C:172CH         LINE#         262
+  C:172FH         LINE#         263
+  C:1731H         LINE#         264
+  C:1733H         LINE#         265
+  -------         ENDPROC       _PUT_CHAR_
+  -------         PROC          TIMER2_ISR
+  -------         DO            
+  D:003EH         SYMBOL        counter
+  -------         ENDDO         
+  C:1668H         LINE#         276
+  C:1679H         LINE#         281
+  C:167CH         LINE#         282
+  C:167CH         LINE#         284
+  C:1685H         LINE#         286
+  C:1688H         LINE#         287
+  C:1688H         LINE#         290
+  C:168AH         LINE#         291
+  -------         ENDPROC       TIMER2_ISR
+  -------         PROC          ADC_ISR
+  C:1327H         LINE#         299
+  C:1344H         LINE#         301
+  C:1346H         LINE#         303
+  C:1351H         LINE#         304
+  C:1351H         LINE#         305
+  C:1351H         LINE#         306
+  C:1357H         LINE#         307
+  C:135AH         LINE#         308
+  C:135CH         LINE#         309
+  C:135CH         LINE#         310
+  C:1362H         LINE#         311
+  C:1365H         LINE#         312
+  C:1365H         LINE#         314
+  C:1387H         LINE#         315
+  C:138BH         LINE#         317
+  C:13CEH         LINE#         318
+  C:13D4H         LINE#         321
+  -------         ENDPROC       ADC_ISR
+  -------         ENDMOD        F31X_BLINKY
+
+  -------         MODULE        ?C?FPDIV
+  C:0803H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+
+  -------         MODULE        ?C?FCAST
+  C:08AAH         PUBLIC        ?C?FCASTC
+  C:08A5H         PUBLIC        ?C?FCASTI
+  C:08A0H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:08DEH         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        PRINTF
+  D:0022H         PUBLIC        ?_PRINTF?BYTE
+  D:0022H         PUBLIC        ?_SPRINTF?BYTE
+  C:0F1AH         PUBLIC        _PRINTF
+  C:0F14H         PUBLIC        _SPRINTF
+  -------         ENDMOD        PRINTF
+
+  -------         MODULE        ?C?FPROUND
+BL51 BANKED LINKER/LOCATER V6.22            11/30/2015  17:17:30  PAGE 7
+
+
+  C:095FH         PUBLIC        ?C?FPROUND
+  -------         ENDMOD        ?C?FPROUND
+
+  -------         MODULE        ?C?FPCONVERT
+  C:098EH         PUBLIC        ?C?FPCONVERT
+  -------         ENDMOD        ?C?FPCONVERT
+
+  -------         MODULE        ?C?FPADD
+  C:0A98H         PUBLIC        ?C?FPADD
+  C:0A94H         PUBLIC        ?C?FPSUB
+  -------         ENDMOD        ?C?FPADD
+
+  -------         MODULE        ?C?FPMUL
+  C:0B89H         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FTNPWR
+  C:0CBFH         PUBLIC        ?C?FTNPWR
+  -------         ENDMOD        ?C?FTNPWR
+
+  -------         MODULE        ?C?CLDPTR
+  C:0CFFH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CLDOPTR
+  C:0D18H         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:0D45H         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?LMUL
+  C:0D57H         PUBLIC        ?C?LMUL
+  -------         ENDMOD        ?C?LMUL
+
+  -------         MODULE        ?C?SLDIV
+  C:15E4H         PUBLIC        ?C?SLDIV
+  -------         ENDMOD        ?C?SLDIV
+
+  -------         MODULE        ?C?LNEG
+  C:0DA6H         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?PLDIIDATA
+  C:0DB4H         PUBLIC        ?C?PLDIIDATA
+  -------         ENDMOD        ?C?PLDIIDATA
+
+  -------         MODULE        ?C?CCASE
+  C:0DC4H         PUBLIC        ?C?CCASE
+  -------         ENDMOD        ?C?CCASE
+
+  -------         MODULE        PUTCHAR
+  C:1699H         PUBLIC        _PUTCHAR
+  -------         ENDMOD        PUTCHAR
+
+  -------         MODULE        ?C?ULDIV
+  C:0E26H         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PUT_CHAR_?F31X_BLINKY
+
+******************************************************************************
+>> 
+BL51 BANKED LINKER/LOCATER V6.22            11/30/2015  17:17:30  PAGE 8
+
+
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 032BH BYTE (39%) *
+>> 
+******************************************************************************
+>> 
+
+Program Size: data=64.1 xdata=0 code=3917
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
